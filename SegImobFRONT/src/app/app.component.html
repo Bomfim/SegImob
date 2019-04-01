@@ -1,3 +1,21 @@
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="wrapper">
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 h-100">
+      <mat-tab label="Vendas">
+        <ng-template matTabContent>
+          <app-sale></app-sale>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Produtos">
+        <ng-template matTabContent>
+          <app-product></app-product>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Vendedores">
+        <ng-template matTabContent>
+          <app-seller></app-seller>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

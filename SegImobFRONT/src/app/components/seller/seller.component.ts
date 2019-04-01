@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellerComponent implements OnInit {
 
+  updateSellers = false;
   constructor() { }
 
   ngOnInit() {
   }
 
+  notifyNewSeller(event: any) {
+    this.updateSellers = true;
+  }
 }

@@ -1,12 +1,8 @@
-<div class="jumbtron">
-  <h1 class="display-4 text-center">Cadastro de Produtos</h1>
-  <hr>
-  <div class="row">
-    <div class="col-md-5">
-      <app-add-product></app-add-product>
-    </div>
-    <div class="col-md-7">
-      <app-product-list></app-product-list>
-    </div>
+<div class="row m-0">
+  <div class="col-5">
+    <app-add-product (newProductEvent)="notifyNewProduct($event)" [editProductHandler]="editProduct"></app-add-product>
+  </div>
+  <div class="col-7">
+    <app-list-products [newProductHandler]="updateProducts" (editProductEvent)="notifyEditProduct($event)"></app-list-products>
   </div>
 </div>

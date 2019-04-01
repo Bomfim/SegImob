@@ -1,12 +1,8 @@
-<div class="jumbtron">
-  <h1 class="display-4 text-center">Cadastro de Vendas</h1>
-  <hr>
-  <div class="row">
-    <div class="col-md-5">
-      <app-add-sale></app-add-sale>
+  <div class="row m-0">
+    <div class="col-5">
+      <app-add-sale (newSaleEvent)="notifyNewSale($event)"></app-add-sale>
     </div>
-    <div class="col-md-7">
-      <app-sale-list></app-sale-list>
+    <div class="col-7">
+      <app-list-sales [newSaleHandler]="updateSales"></app-list-sales>
     </div>
   </div>
-</div>

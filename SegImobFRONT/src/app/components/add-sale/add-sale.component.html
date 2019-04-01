@@ -1,0 +1,17 @@
+<form class="my-5 text-center" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+  <mat-form-field>
+    <mat-label>Produto</mat-label>
+    <mat-select ngModel required name="product">
+      <mat-option *ngFor="let product of products" [value]="product.Id">{{product.Name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-label>Vendedor</mat-label>
+    <mat-select ngModel required name="seller">
+      <mat-option *ngFor="let seller of sellers" [value]="seller.Id">{{seller.Name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <button [disabled]="!f.form.valid" type="submit" mat-flat-button color="primary">Vender!</button>
+</form>
