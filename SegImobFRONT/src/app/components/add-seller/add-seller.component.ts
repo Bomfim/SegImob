@@ -32,8 +32,10 @@ export class AddSellerComponent implements OnInit {
       Name: this.form.controls['seller'].value,
     }
     this.sellerService.addSeller(this.newSeller).subscribe(res => {
-      this.toastr.success('Vendedor adicionado com sucesso');
+      this.toastr.success('Vendedor adicionado com sucesso!');
       this.newSellerEvent.emit(true);
+      this.form.reset();
+
     },
       () => {
         this.toastr.error('Erro!', 'Por favor tente novamente mais tarde.');

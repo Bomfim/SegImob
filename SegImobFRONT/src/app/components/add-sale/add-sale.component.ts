@@ -43,8 +43,9 @@ export class AddSaleComponent implements OnInit {
       Commission: 0.05 * this.products.find(i => i.Id == this.form.controls['product'].value).Price
     }
     this.saleService.addSale(this.newSale).subscribe(res => {
-      this.toastr.success('Venda realizada com sucesso');
+      this.toastr.success('Venda realizada com sucesso!');
       this.newSaleEvent.emit(true);
+      this.form.reset();
     },
       () => {
         this.toastr.error('Erro!', 'Por favor tente novamente mais tarde.');

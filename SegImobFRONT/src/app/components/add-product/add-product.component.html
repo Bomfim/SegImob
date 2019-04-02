@@ -6,11 +6,10 @@
   <br />
   <mat-form-field class="h-100">
     <mat-label>Preço</mat-label>
-    <input type="number" ngModel matInput placeholder="Preço do produto" name="price" required [min]="0.01">
-    <span matPrefix>R$&nbsp;</span>
+    <input type="number" ngModel matInput placeholder="Preço do produto" name="price" required min="0.1">
   </mat-form-field>
   <br />
-  <button *ngIf="!editMode" [disabled]="!f.form.valid" type="submit" mat-flat-button color="accent">Adicionar!</button>
-  <button *ngIf="editMode" [disabled]="!f.form.valid" (click)="updateProduct()" mat-flat-button color="accent">Editar!</button>
-  <button *ngIf="editMode" [disabled]="!f.form.valid" mat-flat-button (click)="this.editMode = false;">Cancelar!</button>
+  <button *ngIf="!editMode" [disabled]="!f.form.valid" type="submit" mat-flat-button color="primary">Adicionar!</button>
+  <button class="mr-1" *ngIf="editMode" type="button" [disabled]="!f.form.valid" (click)="updateProduct()" color="primary" mat-flat-button>Editar</button>
+  <button class="ml-1" *ngIf="editMode" type="button" [disabled]="!f.form.valid" mat-flat-button color="warn" (click)="this.editMode = false;">Cancelar</button>
 </form>

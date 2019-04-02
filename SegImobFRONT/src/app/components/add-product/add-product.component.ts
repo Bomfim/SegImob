@@ -31,7 +31,6 @@ export class AddProductComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-
     this.newProduct = {
       Name: this.form.controls['product'].value,
       Price: this.form.controls['price'].value,
@@ -39,6 +38,7 @@ export class AddProductComponent implements OnInit, OnChanges {
     this.productService.addProduct(this.newProduct).subscribe(res => {
       this.toastr.success('Produto adicionado com sucesso');
       this.newProductEvent.emit(true);
+      this.form.reset();
     },
       () => {
         this.toastr.error('Erro!', 'Por favor tente novamente mais tarde.');
@@ -53,17 +53,20 @@ export class AddProductComponent implements OnInit, OnChanges {
         Name: changes.editProductHandler.currentValue.Name,
         Price: changes.editProductHandler.currentValue.Price
       };
+
+      setTimeout(() => {
+        this.form.controls['product'].setValue(changes.editProductHandler.currentValue.Name);
+        this.form.controls['price'].setValue(changes.editProductHandler.currentValue.Price);
+      });
       this.editMode = true;
     }
   }
 
   updateProduct() {
-    this.editProduct = {
-      Name: this.form.controls['product'].value,
-      Price: this.form.controls['price'].value,
-    }
-    this.productService.updateProduct(this.newProduct).subscribe(res => {
-      this.toastr.success('Produto adicionado com sucesso');
+    this.editProduct.Name = this.form.controls['product'].value;
+    this.editProduct.Price = this.form.controls['price'].value;
+    this.productService.updateProduct(this.editProduct).subscribe(() => {
+      this.toastr.success('Produto editado com sucesso!');
       this.newProductEvent.emit(true);
     },
       () => {

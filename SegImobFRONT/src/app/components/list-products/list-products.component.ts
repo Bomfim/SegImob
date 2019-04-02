@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, SimpleChanges, Output, EventEmitte
 import { Product } from 'src/app/shared/models/product.model';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-products',
@@ -17,7 +18,7 @@ export class ListProductsComponent implements OnInit {
   @Input() newProductHandler: boolean;
   @Output() editProductEvent = new EventEmitter<Product>();
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getAllProducts();
@@ -44,7 +45,18 @@ export class ListProductsComponent implements OnInit {
   }
 
   redirectToDelete(element: Product) {
-    //TODO Modal de exclusão!
+    const aws = confirm('Deseja realmente excluir o produto: ' + element.Name);
+
+    if (aws) {
+      this.productService.deleteProduct(element.Id).subscribe(
+        () => {
+          this.toastrService.success('Produto excluido com sucesso!');
+          this.getAllProducts();
+        },
+        () => {
+          this.toastrService.error('Erro!', 'Por favor tente novamente mais tarde.');
+        });
+    }
   }
 
   redirectToUpdate(element: Product) {

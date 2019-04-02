@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges, OnChanges, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { SaleService } from 'src/app/shared/services/sale.service';
 import { SalesViewModel } from 'src/app/shared/models/sale.model';
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-list-sales',
   templateUrl: './list-sales.component.html',
@@ -13,6 +14,7 @@ export class ListSalesComponent implements OnInit, OnChanges {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() newSaleHandler: boolean;
+  @ViewChild('Table') table: any;
 
   constructor(private saleService: SaleService) { }
 
@@ -27,7 +29,7 @@ export class ListSalesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.newSaleHandler.currentValue){
+    if (changes.newSaleHandler.currentValue) {
       this.getAllSales();
     }
   }
@@ -36,4 +38,12 @@ export class ListSalesComponent implements OnInit, OnChanges {
     this.dataSource.paginator = this.paginator;
   }
 
+  exportAsExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table._elementRef.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet');
+
+    XLSX.writeFile(wb, 'Relatorio' + new Date().toLocaleDateString() + '.xlsx');
+
+  }
 }
